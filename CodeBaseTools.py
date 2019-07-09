@@ -2370,6 +2370,10 @@ class _cbTools(object):
         sophisticated type and coding conversion consistent with the Python object type and the target field type.
         """
         if mTools.isstr(lxSourceValue) and (lcTargetType != "D"):
+            is_python3 = sys.version_info.major == 3
+            if is_python3:
+                unicode = str
+
             if not _ver3x:
                 if isinstance(lxSourceValue, str):
                     lxSourceValue = lxSourceValue.decode('cp1252', 'replace')
@@ -3993,6 +3997,10 @@ Field  Field Name     Type     Width    Dec  Nulls
         :return: Native Python value or None on error.
         """
         xRet = None
+        is_python3 = sys.version_info.major == 3
+        if is_python3:
+            unicode = str
+        
         if cType:
             if cValue is not None:
                 if isinstance(cValue, unicode):
